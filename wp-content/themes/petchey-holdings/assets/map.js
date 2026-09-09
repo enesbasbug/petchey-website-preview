@@ -36,7 +36,7 @@
       title.textContent = p.name;
       place.textContent = p.location;
       type.textContent = [p.label, p.size].filter(Boolean).join(" · ");
-      link.textContent = "Explore property →";
+      link.textContent = "Explore property";
       link.href = p.url;
       box.append(title, place, type, link);
       marker.bindPopup(box);
