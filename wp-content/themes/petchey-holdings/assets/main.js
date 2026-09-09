@@ -27,3 +27,32 @@
     matchMedia("(min-width:951px)").addEventListener("change", close);
   }
 })();
+
+(() => {
+  const buttons = [...document.querySelectorAll("[data-collection-filter]")];
+  const cards = [...document.querySelectorAll("[data-collection-type]")];
+  if (!buttons.length) return;
+  const select = (type) => {
+    let count = 0;
+    cards.forEach((card) => {
+      card.hidden = type !== "all" && card.dataset.collectionType !== type;
+      if (!card.hidden) count++;
+    });
+    buttons.forEach((button) =>
+      button.setAttribute(
+        "aria-pressed",
+        String(button.dataset.collectionFilter === type),
+      ),
+    );
+    document.querySelector(".collection-count").textContent =
+      `${count} selected properties`;
+    document.querySelector(".collection-empty").hidden = count > 0;
+  };
+  buttons.forEach((button) =>
+    button.addEventListener("click", () =>
+      select(button.dataset.collectionFilter),
+    ),
+  );
+  const initial = new URLSearchParams(location.search).get("sector");
+  select(["industrial", "residential"].includes(initial) ? initial : "all");
+})();
