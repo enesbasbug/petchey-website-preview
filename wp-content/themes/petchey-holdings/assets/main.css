@@ -2032,3 +2032,44 @@ em {
   display: grid;
   place-items: center;
 }
+
+#people .people-grid {
+  align-items: start;
+}
+#people .person {
+  border-top: 0;
+  padding-top: 0;
+}
+#people .person img {
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: center top;
+}
+#people .person h3 {
+  font-size: 28px;
+}
+#people .person .role {
+  font-size: 18px;
+  margin: 8px 0 16px;
+}
+.person-bio summary {
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.person-bio .prose {
+  padding-top: 14px;
+}
+@media (min-width: 601px) and (max-width: 950px) {
+  #people .people-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  #people .people-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+}
