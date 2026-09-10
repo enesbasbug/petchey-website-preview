@@ -1950,3 +1950,85 @@ em {
   height: auto;
   aspect-ratio: auto;
 }
+
+/* Portfolio: geographic overview first, then scale and selected examples. */
+.page-id-7 .page-intro {
+  padding: 48px 0 32px;
+}
+.page-id-7 .page-intro h1 {
+  font-size: clamp(44px, 5vw, 72px);
+}
+.portfolio-map-section .filter-bar {
+  margin-bottom: 12px;
+}
+.portfolio-map-section .map-layout {
+  display: block;
+}
+.portfolio-map-section .portfolio-map {
+  width: 100%;
+  height: 650px;
+}
+.ph-map-tiles {
+  filter: saturate(0.3);
+}
+.map-location-details {
+  margin-top: 20px;
+  border-block: 1px solid var(--line);
+  padding: 16px 0;
+}
+.map-location-details summary {
+  cursor: pointer;
+  font-size: 17px;
+}
+.map-location-details .estate-list {
+  max-height: 360px;
+  overflow: auto;
+  margin-top: 20px;
+}
+.map-metrics {
+  padding-bottom: 80px;
+}
+.map-metrics .stat-row {
+  margin-top: 35px;
+}
+.portfolio-availability p {
+  margin-top: 20px;
+  max-width: 650px;
+}
+@media (max-width: 600px) {
+  .portfolio-map-section .portfolio-map {
+    height: 500px;
+  }
+  .page-id-7 .page-intro {
+    padding-top: 32px;
+  }
+  .page-id-7 .page-intro h1 {
+    font-size: 44px;
+  }
+  .map-metrics {
+    padding-bottom: 50px;
+  }
+}
+.page-id-7 .page-intro .eyebrow {
+  display: none;
+}
+.page-id-7 .page-intro .wrap {
+  grid-template-columns: 1.35fr 1fr;
+  gap: 36px;
+}
+.page-id-7 .page-intro h1 {
+  font-size: clamp(42px, 4vw, 58px);
+}
+.page-id-7 .page-intro .lead {
+  font-size: 20px;
+}
+@media (max-width: 950px) {
+  .page-id-7 .page-intro .wrap {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+.portfolio-map .map-cluster {
+  display: grid;
+  place-items: center;
+}

@@ -56,11 +56,31 @@
     return;
   }
   map = L.map(root, {
-    scrollWheelZoom: false,
-    minZoom: 5,
-    maxZoom: 13,
+    scrollWheelZoom: true,
+    minZoom: 6,
+    zoomSnap: 0.5,
+    maxZoom: 18,
     attributionControl: true,
-  }).setView([54.5, -3.1], 5);
+  });
+  // Frame the actual portfolio, rather than a country/continent overview.
+  const locations = phMap.locations
+    .filter(
+      (p) => Number.isFinite(Number(p.lat)) && Number.isFinite(Number(p.lng)),
+    )
+    .map((p) => [Number(p.lat), Number(p.lng)]);
+  const framePortfolio = () => {
+    if (locations.length) {
+      map.fitBounds(L.latLngBounds(locations), {
+        padding: [50, 50],
+        maxZoom: 8.5,
+        animate: false,
+      });
+    } else {
+      map.setView([51.55, -0.1], 8);
+    }
+  };
+  framePortfolio();
+  map.on("resize", framePortfolio);
   cluster = L.markerClusterGroup({
     showCoverageOnHover: false,
     maxClusterRadius: 35,
@@ -72,29 +92,17 @@
       }),
   });
   map.addLayer(cluster);
-  map.attributionControl.addAttribution(
-    "Boundaries: Natural Earth (public domain)",
-  );
-  fetch(phMap.boundaries)
-    .then((r) => {
-      if (!r.ok) throw Error("Map unavailable");
-      return r.json();
-    })
-    .then((data) =>
-      L.geoJSON(data, {
-        style: (f) => ({
-          fillColor:
-            f.properties.name === "United Kingdom" ? "#f8faf9" : "#d8e2e6",
-          fillOpacity: 1,
-          color: "#bdcdd5",
-          weight: 1,
-        }),
-        interactive: false,
-      }).addTo(map),
-    )
-    .catch(() => {
-      status.textContent +=
-        " · Background unavailable; location pins and list remain available.";
-    });
+  const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    noWrap: true,
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    className: "ph-map-tiles",
+  }).addTo(map);
+  tiles.on("tileerror", () => {
+    status.textContent =
+      "Map background unavailable. Property pins remain interactive; you can also browse the location list below.";
+  });
+  L.control.scale({ imperial: true, metric: true }).addTo(map);
   paint();
 })();
