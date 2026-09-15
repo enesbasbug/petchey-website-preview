@@ -104,3 +104,48 @@
     .querySelectorAll(".stat-number")
     .forEach((el) => observer.observe(el));
 })();
+
+// Motion enhances content without taking over native scrolling.
+(() => {
+  const isHome = document.body.classList.contains('home');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  if (!('IntersectionObserver' in window)) return;
+  const homeTargets = '.hero-heading, .hero-aside, .legacy-section > div, .home-collection .section-heading, .sector-card, .intro-grid, .activities .section-heading, .activity, .feature-copy > *, .story-grid > *, .availability > *';
+  const pageTargets = '.page-intro > *, .wide-image, .content-split > *, #legacy > *, .milestone, .people-grid .person, .service-row, .property-showcase, main .story-grid > *, .portfolio-availability > *, .contact-info';
+  const targets = [...document.querySelectorAll(isHome ? homeTargets : pageTargets)];
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('motion-visible');
+      observer.unobserve(entry.target);
+    });
+  }, {threshold: 0.12});
+  targets.forEach(el => {
+    // Content already above the viewport must stay available on restored scrolls.
+    if (reduced.matches || el.getBoundingClientRect().bottom < 0) return;
+    el.classList.add('motion-reveal');
+    observer.observe(el);
+  });
+  const hero = isHome ? document.querySelector('.hero-estate') : null;
+  let frame = 0;
+  const paint = () => {
+    frame = 0;
+    if (!hero || reduced.matches) return;
+    const rect = hero.getBoundingClientRect();
+    if (rect.bottom < 0 || rect.top > innerHeight) return;
+    const progress = Math.max(0, Math.min(1, (innerHeight - rect.top) / (innerHeight * .85)));
+    hero.style.setProperty('--image-inset', `${(1-progress)*7}%`);
+    hero.style.setProperty('--image-scale', String(1.08-progress*.08));
+  };
+  const update = () => { if (!frame) frame = requestAnimationFrame(paint); };
+  addEventListener('scroll', update, {passive:true});
+  addEventListener('resize', update, {passive:true});
+  reduced.addEventListener('change', () => {
+    if (reduced.matches) {
+      targets.forEach(el => el.classList.add('motion-visible'));
+      hero?.style.removeProperty('--image-inset');
+      hero?.style.removeProperty('--image-scale');
+    } else update();
+  });
+  update();
+})();
