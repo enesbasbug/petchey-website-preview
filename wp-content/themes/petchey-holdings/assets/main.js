@@ -149,3 +149,24 @@
   });
   update();
 })();
+
+// Accessible manual property showcase; without JS all properties remain visible.
+(() => {
+  const tour = document.querySelector('[data-property-tour]');
+  if (!tour) return;
+  const panels = [...tour.querySelectorAll('[data-tour-panel]')];
+  const buttons = [...tour.querySelectorAll('[data-tour-select]')];
+  const select = index => {
+    panels.forEach((panel, i) => {
+      panel.hidden = i !== index;
+      panel.classList.toggle('is-selected', i === index);
+    });
+    buttons.forEach((button, i) => {
+      button.setAttribute('aria-pressed', String(i === index));
+      button.setAttribute('aria-controls', panels[i].id);
+    });
+  };
+  buttons.forEach((button, i) => button.addEventListener('click', () => select(i)));
+  select(0);
+  tour.querySelector('.tour-navigation').hidden = false;
+})();

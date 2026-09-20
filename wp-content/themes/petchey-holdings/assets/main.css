@@ -2523,3 +2523,39 @@ h2 {
 @media print {
   .motion-reveal { opacity:1 !important; transform:none !important; }
 }
+
+/* Real properties lead the experience; navigation is deliberate, never autoplay. */
+.property-tour { background:var(--navy); color:white; padding:64px 0 0; margin-top:64px; }
+.tour-heading { display:flex; align-items:end; justify-content:space-between; gap:24px; padding-bottom:32px; }
+.tour-heading h2 { color:white; font-size:clamp(34px,4vw,56px); margin:8px 0 0; }
+.tour-heading .eyebrow { color:#bacfdd; }
+.tour-heading .text-link { color:white; border-color:#ffffff60; white-space:nowrap; }
+.tour-panel { position:relative; margin:0; isolation:isolate; }
+.tour-panel[hidden] { display:none; }
+.tour-panel img { width:100%; height:clamp(360px,45vw,620px); object-fit:cover; display:block; }
+.tour-caption { background:linear-gradient(transparent,#071a2de8); position:absolute; inset:auto 0 0; padding:100px 40px 36px; display:flex; justify-content:space-between; align-items:end; gap:24px; }
+.tour-caption p { font-size:16px; color:#e0eaf0; margin:0 0 8px; }
+.tour-caption h3 { font-size:clamp(26px,3vw,42px); color:white; margin:0; }
+.tour-caption .button { background:white; color:var(--navy); border-color:white; white-space:nowrap; }
+.tour-caption .button:hover { background:#dce7ee; }
+.tour-navigation { display:grid; grid-template-columns:repeat(3,1fr); }
+.tour-navigation[hidden] { display:none; }
+.tour-navigation button { border:0; border-top:3px solid transparent; text-align:left; background:transparent; color:#bbcbd7; padding:24px 20px 28px; font:inherit; font-size:17px; cursor:pointer; }
+.tour-navigation button span { display:block; font-size:13px; margin-bottom:7px; }
+.tour-navigation button[aria-pressed=true] { color:white; border-top-color:white; background:#ffffff08; }
+.tour-navigation button:hover { background:#ffffff10; }
+.tour-navigation button:focus-visible { outline:2px solid white; outline-offset:-5px; }
+@media(prefers-reduced-motion:no-preference) {
+ .tour-panel.is-selected img { animation:tour-photo 850ms cubic-bezier(.2,.65,.3,1) both; }
+ .tour-panel.is-selected .tour-caption { animation:tour-caption 550ms ease both; }
+ @keyframes tour-photo { from {opacity:.45; clip-path:inset(0 2%);} to {opacity:1;clip-path:inset(0);} }
+ @keyframes tour-caption { from {opacity:0;translate:0 12px;} to {opacity:1;translate:0 0;} }
+}
+@media(max-width:700px) {
+ .property-tour { padding-top:36px; }
+ .tour-heading { align-items:start; flex-direction:column; }
+ .tour-panel img { height:320px; }
+ .tour-caption { position:static; background:none; padding:24px 0; display:block; }
+ .tour-caption .button { margin-top:20px; }
+ .tour-navigation button { padding:18px 8px; font-size:14px; line-height:1.4; }
+}
