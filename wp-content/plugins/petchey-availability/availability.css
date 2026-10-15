@@ -819,3 +819,52 @@
     height: 300px;
   }
 }
+.pha-airport-section {
+  margin-top: 32px;
+  padding: 24px;
+  background: #f0f3f5;
+}
+.pha-airport-section h3 {
+  font-size: 23px;
+  margin: 0 0 12px;
+}
+.pha-airport-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.pha-airport-list li {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.pha-airport-list svg {
+  flex-shrink: 0;
+  color: var(--navy);
+  margin-top: 3px;
+}
+.pha-airport-list strong,
+.pha-airport-list span {
+  display: block;
+}
+.pha-airport-list strong {
+  font-size: 17px;
+}
+.pha-airport-list span {
+  font-size: 14px;
+  margin: 6px 0 12px;
+  color: #536575;
+}
+.pha-airport-list a {
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+@media (max-width: 700px) {
+  .pha-airport-list {
+    grid-template-columns: 1fr;
+  }
+}
