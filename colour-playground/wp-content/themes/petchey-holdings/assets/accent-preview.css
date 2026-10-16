@@ -1,0 +1,114 @@
+/* Three main colours: navy, white and petrol blue. Local review only. */
+.site-header nav > .button,
+.film-content .button,
+.pha-search-primary .button,
+.pha-email-button {
+  background: var(--accent-preview);
+  border-color: var(--accent-preview-on-white);
+  color: var(--accent-preview-text) !important;
+}
+.site-header nav > .button:hover,
+.film-content .button:hover,
+.pha-search-primary .button:hover,
+.pha-email-button:hover {
+  background: var(--navy);
+  border-color: var(--accent-preview-light);
+  color: white !important;
+}
+.pha-search-hero h1 span,
+.legacy-section .eyebrow,
+.pha-enquiry-card .pha-kicker {
+  color: var(--accent-preview-light);
+}
+.pha-feature-icon {
+  background: transparent;
+  color: var(--accent-preview-on-white);
+  border: 1px solid var(--accent-preview-on-white);
+}
+.pha-airport-list svg,
+.activity-number,
+.service-row .service-number {
+  color: var(--accent-preview-on-white);
+}
+.home-collection .sector-card > div,
+.pha-card-body,
+.person-caption {
+  border-top: 3px solid var(--accent-preview);
+}
+.team-person[open] summary {
+  border-left-color: var(--accent-preview-on-white);
+}
+.tour-navigation button[aria-pressed="true"] {
+  border-top-color: var(--accent-preview-light);
+}
+.footer-top {
+  border-top: 2px solid var(--accent-preview-light);
+}
+
+/* Petrol carries complete content sections, not just decorative details. */
+.property-tour,
+.activities,
+.person-caption,
+.pha-enquiry-card {
+  background: var(--accent-preview);
+  color: white;
+}
+.activities h2,
+.activities .text-link,
+.activities .activity,
+.activities h3,
+.activities p,
+.activities .activity-number {
+  color: white;
+}
+.activities .text-link,
+.activities .activity {
+  border-color: #ffffff70;
+}
+.activities .activity:hover h3 {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+.tour-heading .eyebrow,
+.tour-navigation button,
+.pha-enquiry-card p,
+.pha-enquiry-card .pha-property-reference {
+  color: #e1eff1;
+}
+.tour-navigation button[aria-pressed="true"] {
+  color: white;
+}
+.pha-email-button {
+  background: white;
+  border-color: white;
+  color: var(--accent-preview) !important;
+}
+.availability.wrap {
+  background: var(--accent-preview);
+  color: white;
+  padding: clamp(28px, 4vw, 56px);
+  margin-bottom: 64px;
+}
+.availability.wrap h2,
+.availability.wrap p {
+  color: white;
+}
+.availability.wrap .button {
+  background: white;
+  border-color: white;
+  color: var(--accent-preview);
+}
+.availability.wrap .button:hover {
+  background: var(--navy);
+  color: white;
+}
+.service-row:nth-child(even) {
+  background: var(--accent-preview);
+  padding: clamp(24px, 3vw, 40px);
+  color: white;
+}
+.service-row:nth-child(even) h2,
+.service-row:nth-child(even) p,
+.service-row:nth-child(even) .service-number {
+  color: white;
+}
