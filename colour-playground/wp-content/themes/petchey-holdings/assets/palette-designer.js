@@ -23,7 +23,15 @@
       "#" + (incoming.get("palette_" + key) || ""),
     ]),
   );
-  if (Object.keys(defaults).every((key) => valid(shared[key]))) state = shared;
+  if (Object.keys(defaults).every((key) => valid(shared[key]))) {
+    state = shared;
+    // Consume shared values once so subsequent edits and resets survive a reload.
+    const cleanUrl = new URL(location.href);
+    Object.keys(defaults).forEach((key) =>
+      cleanUrl.searchParams.delete("palette_" + key),
+    );
+    history.replaceState(history.state, "", cleanUrl.href);
+  }
   const rgb = (hex) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
   const hex = (values) =>
     "#" +
@@ -81,7 +89,10 @@
   apply();
   const host = document.createElement("aside");
   host.className = "ph-palette-lab";
-  host.setAttribute("aria-label", "Local website colour workbench");
+  host.setAttribute(
+    "aria-label",
+    playground ? "Website colour playground" : "Local website colour workbench",
+  );
   host.innerHTML = `
     <button class="pl-toggle" type="button" aria-expanded="false" aria-controls="ph-palette-panel"><span class="pl-swatch-stack" aria-hidden="true"><i></i><i></i><i></i></span>Colours</button>
     <div id="ph-palette-panel" class="pl-panel" hidden>
